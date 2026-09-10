@@ -66,3 +66,7 @@ Future file modifications will be added to this log.
 - Replaced the heartbeat login icon with a cracked-laptop logo using laptop and lightning icons.
 - Added show/hide password control to the login page.
 - Added the cracked-laptop logo to the shared authenticated sidebar for all user roles.
+- Restyled AI-Lite suggestions and cluster reporting with black, neutral, and amber theme accents instead of blue and orange.
+- Forced all AI-Lite suggestion text and icons to black.
+- Refined the AI-Lite panel with a warm cream surface, charcoal text, soft brown border, and amber accent based on color contrast and harmony.
+- Applied the same AI-Lite theme to the public fault-reporting page.

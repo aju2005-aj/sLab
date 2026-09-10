@@ -126,17 +126,17 @@ function ReportFormContent() {
               </div>
 
               {suggestions.length > 0 && (
-                <div className="bg-blue-900/20 border border-blue-800 rounded-lg p-4">
-                  <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center">
-                    <AlertCircle className="w-4 h-4 mr-2" />
+                <div className="bg-card border border-[#e8d9d2] border-l-4 border-l-secondary rounded-lg p-4 shadow-sm">
+                  <h4 className="text-sm font-bold text-black mb-2 flex items-center">
+                    <AlertCircle className="w-4 h-4 mr-2 text-secondary" />
                     AI-Lite Suggestion
                   </h4>
-                  <ul className="text-sm text-blue-300 space-y-1 list-disc list-inside">
+                  <ul className="text-sm text-[#332a27] space-y-1 list-disc list-inside">
                     {suggestions.map((sug, i) => (
                       <li key={i}>{sug}</li>
                     ))}
                   </ul>
-                  <p className="text-xs text-gray-500 mt-2 italic">Try these common fixes before submitting the report if possible.</p>
+                  <p className="text-xs text-[#6b5f59] mt-2 italic">Try these common fixes before submitting the report if possible.</p>
                 </div>
               )}
 

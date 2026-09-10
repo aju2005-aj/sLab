@@ -402,17 +402,17 @@ export default function FaultsPage() {
 
               {/* AI Suggestions Box */}
               {suggestions.length > 0 && (
-                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                  <h4 className="text-sm font-bold text-blue-800 dark:text-blue-400 mb-2 flex items-center">
-                    <Search className="w-4 h-4 mr-2" />
+                <div className="bg-card border border-[#e8d9d2] border-l-4 border-l-secondary rounded-lg p-4 shadow-sm">
+                  <h4 className="text-sm font-bold text-black mb-2 flex items-center">
+                    <Search className="w-4 h-4 mr-2 text-secondary" />
                     AI-Lite Suggestion
                   </h4>
-                  <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1 list-disc list-inside">
+                  <ul className="text-sm text-[#332a27] space-y-1 list-disc list-inside">
                     {suggestions.map((sug, i) => (
                       <li key={i}>{sug}</li>
                     ))}
                   </ul>
-                  <p className="text-xs text-gray-500 mt-2 italic">Try these common fixes before submitting the report if possible.</p>
+                  <p className="text-xs text-[#6b5f59] mt-2 italic">Try these common fixes before submitting the report if possible.</p>
                 </div>
               )}
 
@@ -511,12 +511,12 @@ export default function FaultsPage() {
               </div>
 
               {clusterInsights.length > 0 && user?.role === 'admin' && (
-                <div className="mt-4 p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg">
-                  <h4 className="text-sm font-bold text-orange-800 dark:text-orange-400 mb-2 flex items-center">
-                    <AlertCircle className="w-4 h-4 mr-2" />
+                <div className="mt-4 p-4 bg-gray-50 border-l-4 border-primary rounded-lg shadow-sm">
+                  <h4 className="text-sm font-bold text-primary mb-2 flex items-center">
+                    <AlertCircle className="w-4 h-4 mr-2 text-secondary" />
                     AI Insights & Cluster Reporting
                   </h4>
-                  <ul className="text-sm text-orange-700 dark:text-orange-300 space-y-2">
+                  <ul className="text-sm text-gray-700 space-y-2">
                     {clusterInsights.map((insight, idx) => (
                       <li key={idx}>{insight}</li>
                     ))}
