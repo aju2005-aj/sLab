@@ -1,0 +1,68 @@
+# Change Log
+
+## 2026-09-10
+
+- Migrated the backend database from SQLite to PostgreSQL.
+- Added PostgreSQL connection settings and schema initialization.
+- Updated backend database utility scripts and dependencies.
+- Applied the light, modern theme:
+  - Primary: #000000
+  - Secondary: #F59E0B
+  - Background: #F5ECE8
+  - Card background: #FDFBF9
+  - Text: #1F1F1F
+  - Success: #16A34A
+  - Error: #DC2626
+- Updated dashboard and report surfaces to use the new theme.
+
+Future file modifications will be added to this log.
+
+## PostgreSQL Login Troubleshooting
+
+- `ECONNREFUSED 127.0.0.1:5432` means no PostgreSQL server is listening locally.
+- PostgreSQL tools and the `postgresql` system service are not installed on this machine.
+- Install PostgreSQL, create the `slab` database, and configure `backend/.env` with the PostgreSQL credentials before starting the backend.
+
+## Manage Labs
+
+- Added an admin-only Manage Labs panel at `/dashboard/labs`.
+- Added API endpoints to create and delete laboratories.
+- Laboratory deletion is blocked when equipment is still assigned to the lab.
+- Added the Manage Labs link to the admin sidebar.
+
+## Equipment Management
+
+- Added an admin-only Remove Equipment action and API endpoint.
+- Prevented equipment removal when fault reports still reference it.
+- Updated QR downloads to include the system number, equipment name, and QR code in the downloaded image.
+
+## Equipment Updates
+
+- Simplified QR downloads to include only the QR image and system number.
+- Added admin-only equipment editing for name, laboratory, QR code, and priority.
+- Ensured Add Equipment opens a clean form after editing an existing item.
+- Changed downloaded system number labels to use the Equipment Name field, such as `S-41`.
+- Fixed equipment edit requests and made admin deletion remove linked fault reports before removing the equipment record.
+- Added clear backend handling for port conflicts instead of an unhandled `EADDRINUSE` crash.
+- Duplicate backend starts now terminate immediately; the already-running backend remains available on port 3001.
+- Cleared the corrupted `.next` cache and stale duplicate Next.js servers causing static asset 404 errors; one clean frontend now runs on port 3000.
+
+## Technician Management
+
+- Added working technician edit and remove actions for admins.
+- Technician removal clears technician assignments from existing fault reports before deleting the account.
+- Technician passwords are hashed on creation and optional password changes, so newly created technicians can log in with their email and password.
+- Hardened PostgreSQL compatibility callbacks to prevent `Cannot read properties of undefined (reading 'call')` during database actions.
+- Added `npm run dev:clean` to remove stale Next.js output before starting the frontend and prevent webpack runtime/cache errors.
+
+## Fault Reports
+
+- Added an admin-only Delete Fault action for listed reports.
+- Deleting a fault removes it from PostgreSQL and refreshes the visible list.
+- Equipment is restored to active when it has no remaining unresolved fault reports.
+
+## Login Branding
+
+- Replaced the heartbeat login icon with a cracked-laptop logo using laptop and lightning icons.
+- Added show/hide password control to the login page.
+- Added the cracked-laptop logo to the shared authenticated sidebar for all user roles.
