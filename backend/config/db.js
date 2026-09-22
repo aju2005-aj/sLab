@@ -1,13 +1,17 @@
 const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 
+const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  host: process.env.PGHOST,
-  port: process.env.PGPORT,
-  database: process.env.PGDATABASE,
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
+  ...(connectionString
+    ? { connectionString }
+    : {
+        host: process.env.PGHOST || process.env.DB_HOST,
+        port: Number(process.env.PGPORT || process.env.DB_PORT) || 5432,
+        database: process.env.PGDATABASE || process.env.DB_NAME,
+        user: process.env.PGUSER || process.env.DB_USER,
+        password: String(process.env.PGPASSWORD ?? process.env.DB_PASSWORD ?? '')
+      }),
   ssl: process.env.PGSSLMODE === 'require' ? { rejectUnauthorized: false } : false
 });
 
@@ -188,7 +192,8 @@ async function seedInitialData() {
   }
 }
 
-initDb().then(() => console.log('Connected to PostgreSQL database.'))
-  .catch((err) => console.error('Error initializing PostgreSQL database:', err));
+const ready = initDb().then(() => {
+  console.log('Connected to PostgreSQL database.');
+});
 
-module.exports = db;
+module.exports = { ...db, ready };

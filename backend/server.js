@@ -67,6 +67,17 @@ server.on('error', (error) => {
   process.exit(1);
 });
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server listening on http://0.0.0.0:${PORT}`);
-});
+async function startServer() {
+  try {
+    await require('./config/db').ready;
+    server.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server listening on http://0.0.0.0:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Backend startup aborted: PostgreSQL is not available.');
+    console.error(error.message);
+    process.exitCode = 1;
+  }
+}
+
+startServer();

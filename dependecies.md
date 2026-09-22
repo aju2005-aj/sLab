@@ -14,6 +14,17 @@ A full-stack, responsive web application for managing laboratory equipment fault
    ```
    Configure PostgreSQL with `DATABASE_URL` (or the `PG*` variables) in `backend/.env`. The required tables and demo data are created on first run.
 
+   On Ubuntu, create the database and an application user once (replace the password):
+   ```bash
+   sudo -u postgres createuser --createdb --pwprompt slab_app
+   sudo -u postgres createdb --owner=slab_app slab
+   ```
+   Then create `backend/.env` from `backend/env.example`, set the PostgreSQL password, and start the backend with:
+   ```bash
+   cd backend
+   npm start
+   ```
+
 2. **Frontend Setup**
    ```bash
    cd frontend

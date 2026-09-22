@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-// Get backend URL from current window location to support LAN access dynamically
 const getBaseUrl = () => {
+  const configuredUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (configuredUrl) {
+    return configuredUrl.replace(/\/+$/, '');
+  }
+
   if (typeof window !== 'undefined') {
     return `http://${window.location.hostname}:3001/api`;
   }
