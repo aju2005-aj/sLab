@@ -19,10 +19,8 @@ const loginUser = (req, res) => {
     try {
       isMatch = bcrypt.compareSync(password, user.password);
     } catch (e) {
-      // Handle cases where comparing throws an error (e.g. invalid bcrypt hash format)
     }
     
-    // Fallback to plain-text comparison
     if (!isMatch && user.password === password) {
       isMatch = true;
     }

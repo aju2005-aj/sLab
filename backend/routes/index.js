@@ -4,7 +4,6 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Ensure uploads dir exists
 const uploadsDir = path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadsDir)){
     fs.mkdirSync(uploadsDir);
@@ -21,7 +20,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// Fault Routes
 const faultRouter = express.Router();
 const { createFaultReport, getFaultReports, updateFaultReport, deleteFaultReport } = require('../controllers/faultController');
 faultRouter.post('/', upload.single('image'), createFaultReport);
@@ -29,17 +27,14 @@ faultRouter.get('/', protect, getFaultReports);
 faultRouter.put('/:id', protect, techOrAdmin, updateFaultReport);
 faultRouter.delete('/:id', protect, adminOnly, deleteFaultReport);
 
-// AI Routes
 const aiRouter = express.Router();
 const { getSuggestions } = require('../controllers/aiController');
 aiRouter.post('/suggest', getSuggestions);
 
-// Dashboard Routes
 const dashboardRouter = express.Router();
 const { getDashboardStats } = require('../controllers/dashboardController');
 dashboardRouter.get('/stats', protect, getDashboardStats);
 
-// Equipment & Labs Routes
 const equipmentRouter = express.Router();
 const { getEquipment, getEquipmentByQR, createEquipment, updateEquipment, deleteEquipment, getLaboratories, createLaboratory, deleteLaboratory } = require('../controllers/equipmentController');
 equipmentRouter.get('/', getEquipment);

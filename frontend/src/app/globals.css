@@ -28,7 +28,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Keep existing utility-based surfaces aligned with the light theme. */
 .bg-gray-50 {
   background-color: var(--background) !important;
 }

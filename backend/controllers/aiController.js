@@ -10,7 +10,6 @@ const getSuggestions = (req, res) => {
   const descLower = description.toLowerCase();
   const suggestions = [];
 
-  // Default hardcoded robust rules matching the user requirements
   const defaultRules = [
     { keyword: 'network', suggestion: 'In some cases, it may be an ethernet problem. Please check it.' },
     { keyword: 'internet', suggestion: 'In some cases, it may be an ethernet problem. Please check it.' },
@@ -22,7 +21,6 @@ const getSuggestions = (req, res) => {
     { keyword: 'noise', suggestion: 'Could be a fan issue. Turn off immediately to prevent overheating.' }
   ];
 
-  // Match default rules
   defaultRules.forEach(rule => {
     if (descLower.includes(rule.keyword.toLowerCase())) {
       if (!suggestions.includes(rule.suggestion)) {
@@ -31,7 +29,6 @@ const getSuggestions = (req, res) => {
     }
   });
 
-  // Query database for additional rules or customized rules
   db.all(`SELECT * FROM ai_rules`, [], (err, rules) => {
     if (!err && rules) {
       rules.forEach(rule => {
@@ -45,13 +42,12 @@ const getSuggestions = (req, res) => {
       console.error("Error fetching rules from DB, using fallback rules:", err.message);
     }
 
-    // 2. Check for Cluster Reporting (Network issues)
     const isNetworkIssue = descLower.includes('network') || descLower.includes('internet') || descLower.includes('wifi') || descLower.includes('ethernet');
     
     const checkCluster = new Promise((resolve) => {
       if (isNetworkIssue) {
         db.get(`SELECT COUNT(*) as count FROM fault_reports WHERE (description LIKE '%network%' OR description LIKE '%internet%' OR description LIKE '%wifi%' OR description LIKE '%ethernet%') AND status != 'solved'`, (err, row) => {
-          if (row && row.count >= 2) { // 2 existing + 1 new = 3
+          if (row && row.count >= 2) {
             suggestions.push("Cluster Warning: Multiple network issues detected across the lab. It may be a router or main switch problem.");
           }
           resolve();
@@ -61,11 +57,10 @@ const getSuggestions = (req, res) => {
       }
     });
 
-    // 3. Check for Repeated Faults
     const checkRepeated = new Promise((resolve) => {
       if (eq_id && description) {
         db.get(`SELECT COUNT(*) as count FROM fault_reports WHERE eq_id = ? AND LOWER(description) LIKE '%' || ? || '%'`, [eq_id, descLower.trim()], (err, row) => {
-          if (row && row.count >= 2) { // more than 2 times means >= 2 previous + this one, so if count >= 2
+          if (row && row.count >= 2) {
             suggestions.push("🔄 Repeated Problem Warning: This exact or similar issue has been reported multiple times for this equipment.");
           }
           resolve();

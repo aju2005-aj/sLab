@@ -7,7 +7,6 @@ const createFaultReport = (req, res) => {
 
   const parsedEqId = parseInt(eq_id, 10);
 
-  // Fetch equipment priority
   db.get(`SELECT priority FROM equipment WHERE id = ?`, [parsedEqId], (err, row) => {
     if (err) return res.status(500).json({ message: err.message });
     const priority = row ? row.priority : 'normal';
@@ -88,7 +87,6 @@ const updateFaultReport = (req, res) => {
     if (err) return res.status(500).json({ message: err.message });
     if (this.changes === 0) return res.status(404).json({ message: 'Report not found' });
 
-    // If solved, update equipment back to active (optional logic, but makes sense)
     if (status === 'solved') {
       db.get(`SELECT eq_id FROM fault_reports WHERE id = ?`, [id], (err, row) => {
         if (row) {
@@ -100,7 +98,6 @@ const updateFaultReport = (req, res) => {
       });
     }
 
-    // Emit real-time update
     const io = req.app.get('io');
     if (io) {
       io.emit('update_fault', { id, status, technician_id });

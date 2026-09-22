@@ -36,7 +36,6 @@ export default function EquipmentMapPage() {
     };
   }, []);
 
-  // Group by lab
   const labs = equipments.reduce((acc, eq) => {
     const labName = eq.lab_name || "Unknown Lab";
     if (!acc[labName]) acc[labName] = [];
@@ -81,7 +80,6 @@ export default function EquipmentMapPage() {
                       {eq.name.split(' ')[0]}
                     </span>
                     
-                    {/* Tooltip */}
                     <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity bottom-full mb-2 bg-gray-900 text-white text-xs rounded py-1 px-2 pointer-events-none whitespace-nowrap z-10 shadow-lg">
                       {eq.name}<br/>
                       <span className="text-gray-300">{eq.qr_code}</span><br/>

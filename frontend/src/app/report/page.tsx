@@ -116,7 +116,6 @@ function ReportFormContent() {
                         const res = await api.post('/ai/suggest', { description: text, eq_id: selectedEqId });
                         setSuggestions(res.data.suggestions);
                       } catch (error) {
-                        // ignore errors for suggestions
                       }
                     } else {
                       setSuggestions([]);

@@ -20,7 +20,6 @@ const getDashboardStats = (req, res) => {
     db.get(`SELECT COUNT(*) as equipment FROM equipment`, (err, row) => {
       stats.total_equipment = row ? row.equipment : 0;
       
-      // Sending response here because it's the last query
       res.json(stats);
     });
   });

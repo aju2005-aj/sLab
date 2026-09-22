@@ -208,7 +208,6 @@ export default function EquipmentPage() {
         </div>
       )}
 
-      {/* Add/Edit Equipment Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-lg overflow-hidden">

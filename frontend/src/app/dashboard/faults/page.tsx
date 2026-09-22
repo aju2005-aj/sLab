@@ -15,14 +15,12 @@ export default function FaultsPage() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isScannerOpen, setScannerOpen] = useState(false);
   
-  // New Report State
   const [equipments, setEquipments] = useState<any[]>([]);
   const [newReport, setNewReport] = useState({ eq_id: "", description: "", priority: "normal" });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [reporting, setReporting] = useState(false);
 
-  // Manage Fault State
   const [technicians, setTechnicians] = useState<any[]>([]);
   const [isManageModalOpen, setManageModalOpen] = useState(false);
   const [selectedFault, setSelectedFault] = useState<any>(null);
@@ -73,7 +71,6 @@ export default function FaultsPage() {
       const res = await api.get('/faults');
       setFaults(res.data);
       
-      // Notify Technician of assigned pending faults
       if (user?.role === 'technician') {
         const assignedPending = res.data.filter((f: any) => f.status === 'pending');
         if (assignedPending.length > 0) {
@@ -108,7 +105,6 @@ export default function FaultsPage() {
         const res = await api.post('/ai/suggest', { description: text, eq_id: newReport.eq_id });
         setSuggestions(res.data.suggestions);
       } catch (error) {
-        // ignore errors for suggestions
       }
     } else {
       setSuggestions([]);
@@ -150,10 +146,8 @@ export default function FaultsPage() {
       remarks: fault.remarks || ''
     });
 
-    // Calculate cluster insights
     const insights: string[] = [];
     
-    // Cluster reporting: > 3 systems reporting network issue
     const networkIssues = faults.filter(f => 
       f.description.toLowerCase().includes('network') || 
       f.description.toLowerCase().includes('internet')
@@ -162,7 +156,6 @@ export default function FaultsPage() {
       insights.push("Cluster Reporting: Multiple systems (>3) are reporting network issues. This may indicate a switch or router issue in the lab.");
     }
 
-    // Repeated problem detection: > 2 times same system reported OS crash
     const sameSystemCrashes = faults.filter(f => 
       f.equipment_id === fault.equipment_id && 
       (f.description.toLowerCase().includes('os crash') || f.description.toLowerCase().includes('crash'))
@@ -319,7 +312,6 @@ export default function FaultsPage() {
         </div>
       </div>
 
-      {/* Report Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-lg overflow-hidden">
@@ -400,7 +392,6 @@ export default function FaultsPage() {
                 </div>
               </div>
 
-              {/* AI Suggestions Box */}
               {suggestions.length > 0 && (
                 <div className="bg-card border border-[#e8d9d2] border-l-4 border-l-secondary rounded-lg p-4 shadow-sm">
                   <h4 className="text-sm font-bold text-black mb-2 flex items-center">
@@ -436,7 +427,6 @@ export default function FaultsPage() {
           </div>
         </div>
       )}
-      {/* Scanner Modal */}
       {isScannerOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md overflow-hidden">
@@ -452,7 +442,6 @@ export default function FaultsPage() {
           </div>
         </div>
       )}
-      {/* Manage Fault Modal */}
       {isManageModalOpen && selectedFault && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-lg overflow-hidden">

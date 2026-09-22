@@ -107,7 +107,6 @@ export default function TechniciansPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Create Form */}
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 h-fit">
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center">
             <Plus className="w-5 h-5 mr-2 text-primary" />
@@ -160,7 +159,6 @@ export default function TechniciansPage() {
           </form>
         </div>
 
-        {/* Technicians List */}
         <div className="lg:col-span-2">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700">

@@ -7,7 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { AlertTriangle, CheckCircle, Clock, Monitor, Printer } from "lucide-react";
 
-const COLORS = ['#F59E0B', '#000000', '#16A34A']; // Pending, In Progress, Solved
+const COLORS = ['#F59E0B', '#000000', '#16A34A'];
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -82,7 +82,6 @@ export default function Dashboard() {
         </div>
       ) : (
         <div className="space-y-6">
-          {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <StatCard title="Total Faults" value={stats.total_faults} icon={AlertTriangle} colorClass="bg-error" />
             <StatCard title="Pending" value={stats.pending_faults} icon={Clock} colorClass="bg-secondary" />
@@ -90,7 +89,6 @@ export default function Dashboard() {
             <StatCard title="Total Equipment" value={stats.total_equipment} icon={Monitor} colorClass="bg-primary" />
           </div>
 
-          {/* Chart Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
               <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Weekly Fault Reports (Mock Data)</h2>
