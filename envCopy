@@ -1,0 +1,6 @@
+DB_USER=slab_app
+DB_PASSWORD=SlabTest_2026_X7pQ9
+DB_NAME=slab
+DB_HOST=localhost
+DB_PORT=5432
+# Alternatively, configure PGHOST, PGPORT, PGDATABASE, PGUSER, and PGPASSWORD.
