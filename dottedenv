@@ -1,0 +1,4 @@
+PORT=3001
+JWT_SECRET=super_secret_jwt_key_here
+FRONTEND_URL=http://localhost:3000
+DATABASE_URL=postgresql://slab_app:slab_local_2026@localhost:5432/slab
